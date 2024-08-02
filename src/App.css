@@ -1,38 +1,142 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Gupter:wght@400;500;700&display=swap");
+
+* {
+  font-family: "Gupter", serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(236, 236, 236, 0.411);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  margin-bottom: 50px;
+}
+.mainContainer {
+}
+.container {
+  width: 370px;
+  height: auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.31);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgb(223, 223, 223);
+  box-shadow: 0px 4px 5px 0px rgb(215, 215, 215);
+}
+.inputContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(172, 172, 172);
+  box-shadow: 0px 2px 5px rgb(221, 221, 221);
+  border-radius: 8px;
+  padding: 0px;
+  overflow: hidden;
+}
+.city {
+  flex: 1;
+  /* padding: 6px 40px; */
+  height: 30px;
+  border-radius: 50px;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  letter-spacing: 0.1rem;
+}
+.searchIconPng {
+  width: 30px;
+  /* background-color: rgb(197, 228, 255); */
+  /* border-radius: 20px; */
+  padding: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.weatherImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.weatherImage .imagePng {
+  width: 70%;
+  height: auto;
+  padding: 20px 0px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.temp,
+.location,
+.country {
+  margin-top: 5px;
+  font-size: 35px;
+  color: rgb(16, 16, 16);
+  text-transform: uppercase;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.temp {
+  font-weight: 900;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.location {
+  color: #ffc526;
+  font-weight: 400;
+  font-size: 30px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.country {
+  color: rgb(189, 189, 189);
+  font-size: 18px;
+  font-weight: 500;
+}
+.cord {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+.cord div {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 10px;
 }
-
-.App-link {
-  color: #61dafb;
+.cord div span {
+  font-size: 14px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cord div span:nth-child(2) {
+  font-size: 24px;
+  font-weight: 800;
+  padding: 5px;
+}
+.dataContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid rgb(157, 157, 157);
+  box-shadow: 0px 5px 8px rgb(225, 225, 225);
+  border-radius: 8px;
+  padding: 0px;
+  overflow: hidden;
+}
+.element img {
+  display: flex;
+  width: 50px;
+}
+.element {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+}
+.data {
+  display: flex;
+  gap: 5px;
 }
