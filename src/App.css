@@ -140,3 +140,20 @@ body {
   display: flex;
   gap: 5px;
 }
+
+.loadingMessage,
+.errorMessage,
+.citNotFoundMessage {
+  overflow: hidden;
+  margin-top: 20px;
+  color: rgb(255, 0, 0);
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  border: 1px solid rgb(182, 182, 182);
+  padding: 5px;
+  border-radius: 8px;
+  background-color: rgb(255, 241, 241);
+  box-shadow: 0px 2px 4px rgb(225, 225, 225);
+}

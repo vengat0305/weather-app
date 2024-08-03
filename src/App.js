@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // images
 import searchIcon from "../src/assets/searching.png";
 import cloudyIcon from "../src/assets/cloudy.png";
@@ -63,9 +63,10 @@ const WeatherDetails = ({
 
 function App() {
   let apiKey = "7b02de8bf16f63848a5ff3d9a4c552fd";
+  const [text, setText] = useState("chennai");
   const [icon, setIcon] = useState(cloudyIcon);
   const [temp, setTemp] = useState(0);
-  const [city, setCity] = useState("Chennai");
+  const [city, setCity] = useState("");
   const [country, setCountry] = useState("IN");
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
@@ -74,23 +75,61 @@ function App() {
   const [cityNotFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState(null);
+
+  const weatherIconMap = {
+    "01d": sunIcon,
+    "01n": sunIcon,
+    "02d": sunIcon,
+    "02n": sunIcon,
+    "03d": cloudyIcon,
+    "03n": cloudyIcon,
+    "04d": cloudyIcon,
+    "04n": cloudyIcon,
+    "09d": rainyIcon,
+    "09n": rainyIcon,
+    "010d": rainyIcon,
+    "010n": rainyIcon,
+    "013d": snowIcon,
+    "013n": snowIcon,
+    "014d": sunCloudIcon,
+  };
+
   const search = async () => {
     setLoading(true);
-
-    // let url = `https://api.openwathermap.org/data/2.5/weather?q=${text}&appid=${apiKey}`;
-    let url = `https://api.weatherapi.com/v1/current.json?key=&q=${text}&aqi=no`;
+    //  `https://weather-api-by-any-city.p.rapidapi.com/weather/${text}`
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${apiKey}&units=Metric`;
     try {
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
+      // console.log(res);
+      // console.log(data);
+      if (data.cod === "404") {
+        console.error("City not found!");
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      setHumidity(data.main.humidity);
+      setWind(data.wind.speed);
+      setTemp(Math.floor(data.main.temp));
+      setCity(data.name);
+      setCountry(data.sys.country);
+      setLat(data.coord.lat);
+      setLong(data.coord.lon);
+
+      const weatherIconCode = data.weather[0].icon;
+      setIcon(weatherIconMap[weatherIconCode] || sunCloudIcon);
+      setNotFound(false);
     } catch (error) {
-      console.log("An error occurred:", error.message);
+      console.error("An error occurred:", error.message);
+      setError("An error occurred fetching while weather data.");
     } finally {
       setLoading(false);
     }
   };
 
-  const [text, setText] = useState("chennai");
   function handleCity(e) {
     setText(e.target.value);
   }
@@ -99,6 +138,10 @@ function App() {
       search();
     }
   }
+
+  useEffect(() => {
+    search();
+  }, []);
   return (
     <div className="mainContainer">
       <h1 style={{ textAlign: "center" }}>Weather project !</h1>
@@ -116,17 +159,25 @@ function App() {
             <img src={searchIcon} className="searchIconPng" alt="search"></img>
           </div>
         </div>
+
+        {loading && <div className="loadingMessage">Loading..</div>}
+        {error && <div className="errorMessage">{error}</div>}
+        {cityNotFound && (
+          <div className="citNotFoundMessage">City Not Found!</div>
+        )}
         {/* weather image */}
-        <WeatherDetails
-          icon={icon}
-          temp={temp}
-          city={city}
-          country={country}
-          lat={lat}
-          long={long}
-          humidity={humidity}
-          wind={wind}
-        />
+        {!loading && !cityNotFound && (
+          <WeatherDetails
+            icon={icon}
+            temp={temp}
+            city={city}
+            country={country}
+            lat={lat}
+            long={long}
+            humidity={humidity}
+            wind={wind}
+          />
+        )}
         <p
           style={{ textAlign: "center", color: "gray", fontSize: "15px" }}
           className="copyright"
