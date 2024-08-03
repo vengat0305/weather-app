@@ -92,6 +92,7 @@ function App() {
     "010n": rainyIcon,
     "013d": snowIcon,
     "013n": snowIcon,
+    "014d": sunCloudIcon,
   };
 
   const search = async () => {
@@ -119,7 +120,7 @@ function App() {
       setLong(data.coord.lon);
 
       const weatherIconCode = data.weather[0].icon;
-      setIcon(weatherIconMap[weatherIconCode] || sunIcon);
+      setIcon(weatherIconMap[weatherIconCode] || sunCloudIcon);
       setNotFound(false);
     } catch (error) {
       console.error("An error occurred:", error.message);
